@@ -967,6 +967,10 @@ class Space(object):
                                  loc=x.mu, scale=x.sigma)
                     space.append(param)
                     self.hps_type[x.name] = "Real"
+                elif isinstance(x, CS.hyperparameters.Constant):
+                    param = Categorical([x.value], prior=None, name=x.name)
+                    space.append(param)
+                    self.hps_type[x.name] = "Categorical"
                 else:
                     raise ValueError("Unknown Hyperparameter type.")
             dimensions = space
